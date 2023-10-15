@@ -168,12 +168,13 @@ function upload() {
     document.querySelector(".background-upload label").classList.replace("actif", "invisible")
 
     const imgupload = document.createElement("img");
-    imgupload.classList.add("userpic");
+    imgupload.classList.add("userpic actif");
     
 
     
     if (inputElement.files.length > 0) {
       imgupload.src = window.URL.createObjectURL(inputElement.files[0]);
+      imgupload.classList.replace("inactif", "actif")
       document.querySelector(".background-upload").appendChild(imgupload)
     }
   })
@@ -191,9 +192,7 @@ function upload() {
     let fichier = document.getElementById("upload").files[0];
   
     if (!fichier) {
-      // Affiche un message d'erreur à l'utilisateur
       document.querySelector(".erreur-span").innerHTML = "Veuillez sélectionner un fichier.";
-       // Sort de la fonction pour empêcher l'envoi de la requête
       document.querySelector(".background-upload i").classList.replace("inactif", "actif")
     document.querySelector(".background-upload input").classList.replace("inactif", "actif")
     document.querySelector(".background-upload span").classList.replace("inactif", "actif")
@@ -217,10 +216,11 @@ function upload() {
       })
       .then((response) => {
         if (response.ok) {
+          document.querySelector(".userpic").classList.replace("actif", "inactif")
           document.querySelector(".background-upload i").classList.replace("inactif", "actif")
-    document.querySelector(".background-upload input").classList.replace("inactif", "actif")
-    document.querySelector(".background-upload span").classList.replace("inactif", "actif")
-    document.querySelector(".background-upload label").classList.replace("invisible", "actif")
+          document.querySelector(".background-upload input").classList.replace("inactif", "actif")
+          document.querySelector(".background-upload span").classList.replace("inactif", "actif")
+          document.querySelector(".background-upload label").classList.replace("invisible", "actif")
           messageupload.classList.add = "vert"
           document.querySelector(".background-upload").remove
           document.querySelector(".erreur-span").innerHTML = "Votre image a bien été ajouté.";
