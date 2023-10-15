@@ -131,23 +131,32 @@ async function connexion() {
 
     const modalimgscontainer = document.querySelector(".modalimgs-container ")
     
-    for(let i = 0; i < travaux.length; i++) {
-      let imgmodal = document.createElement("img")
-      let modaldiv = document.createElement("div")
-      let spanmodal = document.createElement("span")
-      let imodal = document.createElement("i")
+    const addedImages = new Set();
 
-      imodal.classList.add("fa-trash-can")
-      imodal.classList.add("fa-solid")
+for (let i = 0; i < travaux.length; i++) {
+  const imageUrl = travaux[i].imageUrl;
 
-      imgmodal.src = travaux[i].imageUrl
+  // Vérifiez si l'image a déjà été ajoutée
+  if (!addedImages.has(imageUrl)) {
+    let imgmodal = document.createElement("img");
+    let modaldiv = document.createElement("div");
+    let spanmodal = document.createElement("span");
+    let imodal = document.createElement("i");
 
-      modalimgscontainer.appendChild(modaldiv)
-      modaldiv.appendChild(imgmodal)
-      modaldiv.appendChild(spanmodal)
-      spanmodal.appendChild(imodal)     
-      
-    }
+    imodal.classList.add("fa-trash-can");
+    imodal.classList.add("fa-solid");
+
+    imgmodal.src = imageUrl;
+
+    // Ajoutez l'URL de l'image à l'ensemble
+    addedImages.add(imageUrl);
+
+    modalimgscontainer.appendChild(modaldiv);
+    modaldiv.appendChild(imgmodal);
+    modaldiv.appendChild(spanmodal);
+    spanmodal.appendChild(imodal);
+  }
+}
   }
 
   document.querySelector(".log").addEventListener("click", () => {
@@ -156,7 +165,9 @@ async function connexion() {
   
 }
 
+
   async function upload() {
+
   const inputElement = document.getElementById("upload");
   let tokendata = window.sessionStorage.getItem("token")
 
@@ -249,7 +260,7 @@ async function connexion() {
       })
       .then((response) => {
         if (response.ok) {
-          
+          connexion()
           document.querySelector(".erreur-span").innerHTML = "Votre image a bien été ajouté.";
           return response.json();
         } else if (response.status === 500) {
@@ -260,29 +271,6 @@ async function connexion() {
         // Gérer d'autres erreurs ici si nécessaire
       });
 
-    }
-
-    document.querySelectorAll(".modalimgs-container div").forEach((newimg) => {
-      newimg.remove()
-    })
-    const response2 = await fetch("http://localhost:5678/api/works");
-    let travaux2 = await response2.json();
-    for(let i = 0; i < travaux2.length; i++) {
-      let imgmodal = document.createElement("img")
-      let modaldiv = document.createElement("div")
-      let spanmodal = document.createElement("span")
-      let imodal = document.createElement("i")
-
-      imodal.classList.add("fa-trash-can")
-      imodal.classList.add("fa-solid")
-
-      imgmodal.src = travaux[i].imageUrl
-
-      document.querySelector(".modalimgs-container").appendChild(modaldiv)
-      modaldiv.appendChild(imgmodal)
-      modaldiv.appendChild(spanmodal)
-      spanmodal.appendChild(imodal)     
-      
     }
   });
 }  
