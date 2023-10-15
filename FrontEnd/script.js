@@ -37,6 +37,13 @@ async function projets() {
     let dataid2 = document.querySelectorAll('.gallery [data-id="2"]')
     let dataid3 = document.querySelectorAll('.gallery [data-id="3"]')
 
+    function removeActiveClass() {
+      objets.classList.remove("clicked");
+      appart.classList.remove("clicked");
+      hotels.classList.remove("clicked");
+      tous.classList.remove("clicked");
+    }
+
     objets.addEventListener("click", () => {
       if(objets.dataset.id === "1") {
 
@@ -50,6 +57,8 @@ async function projets() {
         dataid3.forEach((datacat) => {
           datacat.classList.replace("actif", "inactif")
         })
+        removeActiveClass();
+        objets.classList.add("clicked");
       }
     })
 
@@ -66,6 +75,8 @@ async function projets() {
         dataid3.forEach((datacat) => {
           datacat.classList.replace("actif", "inactif")
         })
+        removeActiveClass();
+        appart.classList.add("clicked");
       }
     })
 
@@ -82,6 +93,8 @@ async function projets() {
         dataid2.forEach((datacat) => {
           datacat.classList.replace("actif", "inactif")
         })
+        removeActiveClass();
+        hotels.classList.add("clicked");
       }
     })
     
@@ -89,7 +102,8 @@ async function projets() {
       dataid.forEach((datacat) => {
         datacat.classList.replace("inactif", "actif")
       })
-      
+      removeActiveClass();
+      tous.classList.add("clicked");
     })
 
   

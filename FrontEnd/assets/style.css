@@ -200,18 +200,26 @@ li:hover {
 
 .tous {
 	width: 100px;
+	cursor: pointer;
 }
 
 .objets {
 	width: 100px;
+	cursor: pointer;
+}
+
+.clicked {
+	background-color: orange !important;
 }
 
 .appart {
 	width: 157px;
+	cursor: pointer;
 }
 
-.hotel {
+.hotels {
 	width: 200px;
+	cursor: pointer;
 }
 
 .gallery {
