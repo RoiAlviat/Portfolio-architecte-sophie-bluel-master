@@ -167,6 +167,12 @@ function upload() {
 
   document.querySelector(".fa-xmark2").addEventListener("click", () => {
     document.querySelector(".overlay").classList.replace("actif", "inactif")
+    let imguploaded = document.querySelector(".userpic")
+    imguploaded.remove()
+    document.querySelector(".background-upload i").classList.replace("inactif", "actif")
+    document.querySelector(".background-upload input").classList.replace("inactif", "actif")
+    document.querySelector(".background-upload span").classList.replace("inactif", "actif")
+    document.querySelector(".background-upload label").classList.replace("invisible", "actif")
   })
 
   document.querySelector(".fa-arrow-left").addEventListener("click", () => {
