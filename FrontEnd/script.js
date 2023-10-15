@@ -217,7 +217,6 @@ function upload() {
         if (response.ok) {
           document.querySelector(".background-upload").remove
           document.querySelector(".erreur-span").innerHTML = "Votre image a bien été ajouté.";
-          connexion()
           return response.json();
         } else if (response.status === 500) {
           messageupload.style.color = "blue"
