@@ -158,6 +158,8 @@ function upload() {
   document.querySelector(".fa-arrow-left").addEventListener("click", () => {
     document.querySelector(".modal-container").classList.replace("invisible", "actif")
     document.querySelector(".modal2-container").classList.replace("actif", "inactif")
+    let imguploaded = document.querySelector(".userpic")
+    imguploaded.remove()
   })
 
 
