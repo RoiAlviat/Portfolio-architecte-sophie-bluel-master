@@ -261,11 +261,9 @@ for (let i = 0; i < travaux.length; i++) {
       .then((response) => {
         if (response.ok) {
           document.querySelectorAll("modalimgs-container div").forEach((newimg) => {
-            console.log(newimg)
             newimg.remove()
           })
           document.querySelector(".erreur-span").innerHTML = "Votre image a bien été ajouté.";
-          connexion()
           return response.json();
         } else if (response.status === 500) {
           messageupload.classList.add = "rouge"
