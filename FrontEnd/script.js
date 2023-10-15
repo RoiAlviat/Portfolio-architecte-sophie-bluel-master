@@ -182,6 +182,8 @@ function upload() {
   document.querySelector(".form").addEventListener('submit', (e) => {
     e.preventDefault();
   
+    let messageupload = document.querySelector(".erreur-span")
+
     let title = document.getElementById("title").value;
     let categorie = document.getElementById("categorie").value;
     let fichier = document.getElementById("upload").files[0];
@@ -213,11 +215,13 @@ function upload() {
       })
       .then((response) => {
         if (response.ok) {
+          document.querySelector(".background-upload").remove
           document.querySelector(".erreur-span").innerHTML = "Votre image a bien été ajouté.";
-          projets()
+          connexion()
           return response.json();
         } else if (response.status === 500) {
-          document.querySelector(".erreur-span").innerHTML = "Une erreur est survenue, veuillez actualiser la page.";
+          messageupload.style.color = "blue"
+          messageupload = "Une erreur est survenue, veuillez actualiser la page.";
         }
     
         // Gérer d'autres erreurs ici si nécessaire
