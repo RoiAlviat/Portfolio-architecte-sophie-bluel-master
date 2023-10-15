@@ -213,7 +213,6 @@ function upload() {
       })
       .then((response) => {
         if (response.ok) {
-          inputElement.files.length = 0
           return response.json();
         } else if (response.status === 500) {
           document.querySelector(".erreur-span").innerHTML = "Une erreur est survenue, veuillez actualiser la page.";
