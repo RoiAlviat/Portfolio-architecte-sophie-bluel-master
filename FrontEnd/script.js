@@ -174,6 +174,10 @@ function upload() {
     document.querySelector(".modal2-container").classList.replace("actif", "inactif")
     let imguploaded = document.querySelector(".userpic")
     imguploaded.remove()
+    document.querySelector(".background-upload i").classList.replace("inactif", "actif")
+    document.querySelector(".background-upload input").classList.replace("inactif", "actif")
+    document.querySelector(".background-upload span").classList.replace("inactif", "actif")
+    document.querySelector(".background-upload label").classList.replace("invisible", "actif")
   })
 
 
@@ -208,8 +212,6 @@ function upload() {
     document.querySelector(".background-upload input").classList.replace("inactif", "actif")
     document.querySelector(".background-upload span").classList.replace("inactif", "actif")
     document.querySelector(".background-upload label").classList.replace("invisible", "actif")
-    messageupload.classList.add = "vert"
-    document.querySelector(".background-upload").remove
     
 
     let title = document.getElementById("title").value;
