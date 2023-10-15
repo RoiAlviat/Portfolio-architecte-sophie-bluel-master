@@ -213,8 +213,8 @@ function upload() {
       })
       .then((response) => {
         if (response.ok) {
-          projets()
           document.querySelector(".erreur-span").innerHTML = "Votre image a bien été ajouté.";
+          projets()
           return response.json();
         } else if (response.status === 500) {
           document.querySelector(".erreur-span").innerHTML = "Une erreur est survenue, veuillez actualiser la page.";
