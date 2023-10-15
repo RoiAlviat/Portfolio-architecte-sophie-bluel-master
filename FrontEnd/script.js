@@ -1,4 +1,4 @@
-
+let imgupload
 
 document.querySelector(".log").addEventListener("click", () => {
   window.location.href = "login.html"
