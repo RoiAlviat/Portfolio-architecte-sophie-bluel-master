@@ -260,6 +260,9 @@ for (let i = 0; i < travaux.length; i++) {
       })
       .then((response) => {
         if (response.ok) {
+          document.querySelectorAll("modalimgs-container div").forEach((newimg) => {
+            newimg.remove()
+          })
           connexion()
           document.querySelector(".erreur-span").innerHTML = "Votre image a bien été ajouté.";
           return response.json();
