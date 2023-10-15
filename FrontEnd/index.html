@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<title>Sophie Bluel - Architecte d'intérieur</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/83ac43579f.js" crossorigin="anonymous"></script>
+	<meta name="description" content="">
+	<link rel="stylesheet" href="./assets/style.css">
+</head>
+<body>
+	<div class="overlay inactif">
+		
+		<div class="modal-container actif">
+			<i class="fa-solid fa-xmark"></i>
+			<div class="modalh1-container"><h1>Galerie Photo</h1></div>
+			<div class="modalimgs-container">
+				
+			</div>
+			<span class="border-modal"></span>
+			<div class="modal-button-container"><button>Ajouter une photo</button></div>
+			
+		</div>
+
+		<div class="modal2-container inactif">
+			<i class="fa-solid fa-arrow-left"></i>
+			<i class="fa-solid fa-xmark fa-xmark2"></i>
+			<div class="modalh1-container"><h1>Ajout Photo</h1></div>
+			<form class="form">
+				<div class="background-upload">
+					<i class="fa-solid fa-image actif"></i>
+					<label class="actif">+ Ajouter photo
+					<input class="actif" type="file"  id="upload"  accept=".png, .jpg"/>
+					</label>
+					<span class="momax actif">jpg, png : 4mo max</span>
+				</div>
+					<div class="input-upload">
+						<span>Titre</span>
+						<input type="text" name="" id="title" required>
+						<span>Catégorie</span>
+						<select name="categorie" id="categorie" required>
+							<option value="1">Objets</option>
+							<option value="2">Appartements</option>
+							<option value="3">Hôtels et restaurants</option>
+						</select>
+					</div>
+					<span class="erreur-span"></span>
+					<span class="border-modal"></span>
+					<input id="submitbutton"type="submit" value="Valider">
+			</form>
+			
+		</div>
+		
+
+	
+	</div>
+<header>
+	<div class="edition-container inactif">
+		<i class="fa-solid fa-pen-to-square"></i>
+		<h1>Mode édition</h1>
+	</div>
+	<h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
+	<nav>
+		<ul>
+			<a href="#portfolio"><li>projets</li></a>
+			<a href="#contact"><li>contact</li></a>
+			<li class="log">login</li>
+			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
+		</ul>
+	</nav>
+</header>
+<main>
+	<section id="introduction">
+		<figure>
+			<img src="./assets/images/sophie-bluel.png" alt="">
+		</figure>
+		<article>
+			<h2>Designer d'espace</h2>
+			<p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison finale du chantier.</p>
+			<p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
+			<p>En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG, décorateur(trice)</p>
+		</article>
+	</section>
+	<section id="portfolio">
+		<div class="modifier-container">
+			<h2>Mes Projets</h2>
+			<div class="modifinside-container inactif">
+			<i class="fa-solid fa-pen-to-square"></i>
+			<h3>modifier</h3>
+			</div>
+		</div>
+		
+
+		<div class="Filtres disparition">
+			<button class="tous">Tous</button>
+			<button data-id="1" class="objets">Objets</button>
+			<button data-id="2" class="appart">Appartements</button>
+			<button data-id="3" class="hotels">Hôtels & Restaurants</button>
+		</div>
+		<div class="gallery">
+			
+		</div>
+	</section>
+	<section id="contact">
+		<h2>Contact</h2>
+		<p>Vous avez un projet ? Discutons-en !</p>
+		<form action="#" method="post">
+			<label for="name">Nom</label>
+			<input type="text" name="name" id="name">
+			<label for="email">Email</label>
+			<input type="email" name="email" id="email">
+			<label for="message">Message</label>
+			<textarea name="message" id="message" cols="30" rows="10"></textarea>
+			<input type="submit" value="Envoyer">
+		</form>
+	</section>
+</main>
+
+<footer>
+	<nav>
+		<ul>
+			<li>Mentions Légales</li>
+		</ul>
+	</nav>
+</footer>
+<script type="module" src="./script.js"></script>
+</body>
+</html>
