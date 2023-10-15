@@ -168,7 +168,8 @@ function upload() {
     document.querySelector(".background-upload label").classList.replace("actif", "invisible")
 
     const imgupload = document.createElement("img");
-    imgupload.classList.add("userpic actif");
+    imgupload.classList.add("userpic");
+    imgupload.classList.add("actif");
     
 
     
