@@ -169,9 +169,6 @@ function upload() {
 
     const imgupload = document.createElement("img");
     imgupload.classList.add("userpic");
-    imgupload.classList.add("actif");
-    
-
     
     if (inputElement.files.length > 0) {
       imgupload.src = window.URL.createObjectURL(inputElement.files[0]);
@@ -217,9 +214,7 @@ function upload() {
       })
       .then((response) => {
         if (response.ok) {
-          
-          document.querySelector(".userpic").classList.replace("actif", "inactif")
-          document.querySelector(".userpic .actif").remove
+        
           document.querySelector(".background-upload i").classList.replace("inactif", "actif")
           document.querySelector(".background-upload input").classList.replace("inactif", "actif")
           document.querySelector(".background-upload span").classList.replace("inactif", "actif")
