@@ -184,8 +184,10 @@ function upload() {
     let messageupload = document.querySelector(".erreur-span")
     messageupload.style.color = "blue";
     
+    
 
-    document.querySelector(".userpic").remove
+    let imguploaded = document.querySelector(".userpic")
+    imguploaded.remove()
     document.querySelector(".background-upload i").classList.replace("inactif", "actif")
     document.querySelector(".background-upload input").classList.replace("inactif", "actif")
     document.querySelector(".background-upload span").classList.replace("inactif", "actif")
