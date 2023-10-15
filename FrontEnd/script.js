@@ -1,3 +1,5 @@
+
+
 document.querySelector(".log").addEventListener("click", () => {
   window.location.href = "login.html"
 })
@@ -141,7 +143,7 @@ async function connexion() {
 }
 
 function upload() {
-
+  const inputElement = document.getElementById("upload");
   let tokendata = window.sessionStorage.getItem("token")
 
   document.querySelector(".modal-button-container button").addEventListener("click", () => {
@@ -169,7 +171,6 @@ function upload() {
     imgupload.classList.add("userpic");
     
 
-    const inputElement = document.getElementById("upload");
     
     if (inputElement.files.length > 0) {
       imgupload.src = window.URL.createObjectURL(inputElement.files[0]);
@@ -179,37 +180,51 @@ function upload() {
 
 
   document.querySelector(".form").addEventListener('submit', (e) => {
-    e.preventDefault()
-    
-    let title = document.getElementById("title").value
-    let categorie = document.getElementById("categorie").value
+    e.preventDefault();
+  
+    let title = document.getElementById("title").value;
+    let categorie = document.getElementById("categorie").value;
     let fichier = document.getElementById("upload").files[0];
-    
-      let reader = new FileReader();
-      reader.onloadend = () => {
-        let imagebinaire = reader.result
-      }
-    
+  
+    if (!fichier) {
+      // Affiche un message d'erreur à l'utilisateur
+      document.querySelector(".erreur-span").innerHTML = "Veuillez sélectionner un fichier.";
+       // Sort de la fonction pour empêcher l'envoi de la requête
+      document.querySelector(".background-upload i").classList.replace("inactif", "actif")
+    document.querySelector(".background-upload input").classList.replace("inactif", "actif")
+    document.querySelector(".background-upload span").classList.replace("inactif", "actif")
+    document.querySelector(".background-upload label").classList.replace("invisible", "actif")
+    return;
+    }
+  
     let formData = new FormData();
-    formData.append("image", fichier)
-    formData.append("title", title)
-    formData.append("category", categorie )
-    fetch('http://localhost:5678/api/works', {
-      method: "POST",
-      body: formData,
-      headers: {
-        "Authorization": "Bearer " + tokendata,
-      }
-    })
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      } else if(response.status === 500) {
-        document.querySelector(".erreur-span").innerHTML = " Une erreur est survenue, veuillez actualiser la page."
-      }
-    })  
+    formData.append("image", fichier);
+    formData.append("title", title);
+    formData.append("category", categorie);
+
+    if(fichier) {
+      console.log("salut")
+      fetch('http://localhost:5678/api/works', {
+        method: "POST",
+        body: formData,
+        headers: {
+          "Authorization": "Bearer " + tokendata,
+        }
+      })
+      .then((response) => {
+        if (response.ok) {
+          inputElement.files.length = 0
+          return response.json();
+        } else if (response.status === 500) {
+          document.querySelector(".erreur-span").innerHTML = "Une erreur est survenue, veuillez actualiser la page.";
+        }
+    
+        // Gérer d'autres erreurs ici si nécessaire
+      });
+
+    }
   });
-}
+}  
 async function supprimer() {
   let tokendata = window.sessionStorage.getItem("token");
   document.querySelectorAll(".fa-trash-can").forEach((poubelle, index) => {
