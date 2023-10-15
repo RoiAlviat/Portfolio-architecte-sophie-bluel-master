@@ -214,7 +214,7 @@ function upload() {
       })
       .then((response) => {
         if (response.ok) {
-          imgupload.classList.add("actif");
+          document.querySelector(".userpic").classList.add("actif");
           document.querySelector(".userpic").classList.replace("actif", "inactif")
           document.querySelector(".background-upload i").classList.replace("inactif", "actif")
           document.querySelector(".background-upload input").classList.replace("inactif", "actif")
