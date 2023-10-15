@@ -161,7 +161,7 @@ function upload() {
   })
 
 
-  document.querySelector(".form").addEventListener('change', () => {
+  document.querySelector("#upload").addEventListener('change', () => {
     document.querySelector(".background-upload i").classList.replace("actif", "inactif")
     document.querySelector(".background-upload input").classList.replace("actif", "inactif")
     document.querySelector(".background-upload span").classList.replace("actif", "inactif")
