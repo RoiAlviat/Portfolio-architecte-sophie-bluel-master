@@ -627,10 +627,17 @@ text-align: center;
 
 .erreur-span {
 	width: 100%;
-	color: red;
 }
 
 .erreurlog-span {
 	color: red;
 	text-align: center;
+}
+
+.rouge {
+	color: red;
+}
+
+.vert {
+	color: green;
 }

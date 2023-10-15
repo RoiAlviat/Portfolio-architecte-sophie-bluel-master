@@ -181,8 +181,10 @@ function upload() {
 
   document.querySelector(".form").addEventListener('submit', (e) => {
     e.preventDefault();
-  
+    
     let messageupload = document.querySelector(".erreur-span")
+    messageupload.style.color = "blue";
+    
 
     let title = document.getElementById("title").value;
     let categorie = document.getElementById("categorie").value;
@@ -215,11 +217,16 @@ function upload() {
       })
       .then((response) => {
         if (response.ok) {
+          document.querySelector(".background-upload i").classList.replace("inactif", "actif")
+    document.querySelector(".background-upload input").classList.replace("inactif", "actif")
+    document.querySelector(".background-upload span").classList.replace("inactif", "actif")
+    document.querySelector(".background-upload label").classList.replace("invisible", "actif")
+          messageupload.classList.add = "vert"
           document.querySelector(".background-upload").remove
           document.querySelector(".erreur-span").innerHTML = "Votre image a bien été ajouté.";
           return response.json();
         } else if (response.status === 500) {
-          messageupload.style.color = "blue"
+          messageupload.classList.add = "rouge"
           messageupload = "Une erreur est survenue, veuillez actualiser la page.";
         }
     
