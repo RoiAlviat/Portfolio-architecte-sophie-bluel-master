@@ -111,6 +111,29 @@ async function projets() {
 
 }
 
+function miseAJourListeImages(travaux) {
+  const modalimgscontainer = document.querySelector(".modalimgs-container");
+  modalimgscontainer.innerHTML = ""; // Supprime toutes les images actuelles
+
+  for (let i = 0; i < travaux.length; i++) {
+    let imgmodal = document.createElement("img");
+    let modaldiv = document.createElement("div");
+    let spanmodal = document.createElement("span");
+    let imodal = document.createElement("i");
+
+    imodal.classList.add("fa-trash-can");
+    imodal.classList.add("fa-solid");
+
+    imgmodal.src = travaux[i].imageUrl;
+
+    modalimgscontainer.appendChild(modaldiv);
+    modaldiv.appendChild(imgmodal);
+    modaldiv.appendChild(spanmodal);
+    spanmodal.appendChild(imodal);
+  }
+}
+
+
 async function connexion() {
 
   const tokenauth = sessionStorage.getItem("token")
@@ -204,103 +227,39 @@ function upload() {
   })
   
   
-  document.querySelector(".form").addEventListener('submit', (e) => {
-    e.preventDefault();
+  // ... (votre code existant)
 
-    let messageupload = document.querySelector(".erreur-span")
-    messageupload.style.color = "blue";
-    
-    
+document.querySelector(".form").addEventListener('submit', async (e) => {
+  e.preventDefault();
 
-    let imguploaded = document.querySelector(".userpic")
-    imguploaded.remove()
-    document.querySelector(".background-upload i").classList.replace("inactif", "actif")
-    document.querySelector(".background-upload input").classList.replace("inactif", "actif")
-    document.querySelector(".background-upload span").classList.replace("inactif", "actif")
-    document.querySelector(".background-upload label").classList.replace("invisible", "actif")
-    
+  // ... (votre code existant)
 
-    let title = document.getElementById("title").value;
-    let categorie = document.getElementById("categorie").value;
-    let fichier = document.getElementById("upload").files[0];
-  
-    if (!fichier) {
-      document.querySelector(".erreur-span").innerHTML = "Veuillez sélectionner un fichier.";
-      document.querySelector(".background-upload i").classList.replace("inactif", "actif")
-    document.querySelector(".background-upload input").classList.replace("inactif", "actif")
-    document.querySelector(".background-upload span").classList.replace("inactif", "actif")
-    document.querySelector(".background-upload label").classList.replace("invisible", "actif")
-    return;
-    }
-  
-    let formData = new FormData();
-    formData.append("image", fichier);
-    formData.append("title", title);
-    formData.append("category", categorie);
-
-    if(fichier) {
-      console.log("salut")
-      fetch('http://localhost:5678/api/works', {
-        method: "POST",
-        body: formData,
-        headers: {
-          "Authorization": "Bearer " + tokendata,
-        }
-      })
-      .then((response) => {
-        if (response.ok) {
-          
-          document.querySelector(".erreur-span").innerHTML = "Votre image a bien été ajouté.";
-          return response.json();
-        } else if (response.status === 500) {
-          messageupload.classList.add = "rouge"
-          messageupload = "Une erreur est survenue, veuillez actualiser la page.";
-        }
-    
-        // Gérer d'autres erreurs ici si nécessaire
-      });
-
-    }
-
-    document.querySelectorAll(".modalimgs-container div").forEach((newimg) => {
-      newimg.remove()
-    })
-
+  if (fichier) {
     fetch('http://localhost:5678/api/works', {
-  method: "GET",
-  headers: {
-    "Authorization": "Bearer " + tokendata
+      method: "POST",
+      body: formData,
+      headers: {
+        "Authorization": "Bearer " + tokendata,
+      }
+    })
+    .then((response) => {
+      if (response.ok) {
+        // Ajoutez la nouvelle image au tableau 'travaux'
+        travaux.push({
+          imageUrl: imgupload.src, // Assurez-vous que cette propriété est correcte
+          // Ajoutez d'autres propriétés comme 'id' si nécessaire
+        });
+        // Mettez à jour la liste d'images dans la modale de connexion
+        miseAJourListeImages(travaux);
+        document.querySelector(".erreur-span").innerHTML = "Votre image a bien été ajoutée.";
+        return response.json();
+      } else if (response.status === 500) {
+        // ... (votre gestion d'erreur)
+      }
+    });
   }
-})
-.then((response) => {
-  if (response.ok) {
-    for(let i = 0; i < travaux.length; i++) {
-      let imgmodal = document.createElement("img")
-      let modaldiv = document.createElement("div")
-      let spanmodal = document.createElement("span")
-      let imodal = document.createElement("i")
-
-      imodal.classList.add("fa-trash-can")
-      imodal.classList.add("fa-solid")
-
-      imgmodal.src = travaux[i].imageUrl
-
-      modalimgscontainer.appendChild(modaldiv)
-      modaldiv.appendChild(imgmodal)
-      modaldiv.appendChild(spanmodal)
-      spanmodal.appendChild(imodal)     
-      
-    }
-  } else if (response.status === 500) {
-    
-  }
-})
-.catch((error) => {
-  // Gérez les erreurs de réseau ici
 });
 
-  
-  });
 }  
 async function supprimer() {
   let tokendata = window.sessionStorage.getItem("token");
