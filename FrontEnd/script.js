@@ -266,6 +266,39 @@ function upload() {
       newimg.remove()
     })
 
+    fetch('http://localhost:5678/api/works', {
+  method: "GET",
+  headers: {
+    "Authorization": "Bearer " + tokendata
+  }
+})
+.then((response) => {
+  if (response.ok) {
+    for(let i = 0; i < travaux.length; i++) {
+      let imgmodal = document.createElement("img")
+      let modaldiv = document.createElement("div")
+      let spanmodal = document.createElement("span")
+      let imodal = document.createElement("i")
+
+      imodal.classList.add("fa-trash-can")
+      imodal.classList.add("fa-solid")
+
+      imgmodal.src = travaux[i].imageUrl
+
+      modalimgscontainer.appendChild(modaldiv)
+      modaldiv.appendChild(imgmodal)
+      modaldiv.appendChild(spanmodal)
+      spanmodal.appendChild(imodal)     
+      
+    }
+  } else if (response.status === 500) {
+    
+  }
+})
+.catch((error) => {
+  // Gérez les erreurs de réseau ici
+});
+
   
   });
 }  
