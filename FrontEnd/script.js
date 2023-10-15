@@ -227,40 +227,52 @@ function upload() {
   })
   
   
-  // ... (votre code existant)
+  document.querySelector(".form").addEventListener('submit', (e) => {
+    e.preventDefault();
 
-document.querySelector(".form").addEventListener('submit', async (e) => {
-  e.preventDefault();
+    let messageupload = document.querySelector(".erreur-span")
+    messageupload.style.color = "blue";
+    
+    
 
-  // ... (votre code existant)
+    let imguploaded = document.querySelector(".userpic")
+    imguploaded.remove()
+    document.querySelector(".background-upload i").classList.replace("inactif", "actif")
+    document.querySelector(".background-upload input").classList.replace("inactif", "actif")
+    document.querySelector(".background-upload span").classList.replace("inactif", "actif")
+    document.querySelector(".background-upload label").classList.replace("invisible", "actif")
+    
 
-  if (fichier) {
-    fetch('http://localhost:5678/api/works', {
-      method: "POST",
-      body: formData,
-      headers: {
-        "Authorization": "Bearer " + tokendata,
-      }
-    })
-    .then((response) => {
-      if (response.ok) {
-        // Ajoutez la nouvelle image au tableau 'travaux'
-        travaux.push({
-          imageUrl: imgupload.src, // Assurez-vous que cette propriété est correcte
-          // Ajoutez d'autres propriétés comme 'id' si nécessaire
-        });
-        // Mettez à jour la liste d'images dans la modale de connexion
-        miseAJourListeImages(travaux);
-        document.querySelector(".erreur-span").innerHTML = "Votre image a bien été ajoutée.";
-        return response.json();
-      } else if (response.status === 500) {
-        // ... (votre gestion d'erreur)
-      }
-    });
-  }
-});
-
-}  
+    let title = document.getElementById("title").value;
+    let categorie = document.getElementById("categorie").value;
+    let fichier = document.getElementById("upload").files[0];
+  
+    if (fichier) {
+      fetch('http://localhost:5678/api/works', {
+        method: "POST",
+        body: formData,
+        headers: {
+          "Authorization": "Bearer " + tokendata,
+        }
+      })
+      .then((response) => {
+        if (response.ok) {
+          // Ajoutez la nouvelle image au tableau 'travaux'
+          travaux.push({
+            imageUrl: imgupload.src, // Assurez-vous que cette propriété est correcte
+            // Ajoutez d'autres propriétés comme 'id' si nécessaire
+          });
+          // Mettez à jour la liste d'images dans la modale de connexion
+          miseAJourListeImages(travaux);
+          document.querySelector(".erreur-span").innerHTML = "Votre image a bien été ajoutée.";
+          return response.json();
+        } else if (response.status === 500) {
+          // ... (votre gestion d'erreur)
+        }
+      });
+    }
+  });
+}
 async function supprimer() {
   let tokendata = window.sessionStorage.getItem("token");
   document.querySelectorAll(".fa-trash-can").forEach((poubelle, index) => {
