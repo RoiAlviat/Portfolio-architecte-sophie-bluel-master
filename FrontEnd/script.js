@@ -266,23 +266,7 @@ function upload() {
       newimg.remove()
     })
 
-    for(let i = 0; i < travaux.length; i++) {
-      let imgmodal = document.createElement("img")
-      let modaldiv = document.createElement("div")
-      let spanmodal = document.createElement("span")
-      let imodal = document.createElement("i")
-
-      imodal.classList.add("fa-trash-can")
-      imodal.classList.add("fa-solid")
-
-      imgmodal.src = travaux[i].imageUrl
-
-      document.querySelector(".modalimgs-container").appendChild(modaldiv)
-      modaldiv.appendChild(imgmodal)
-      modaldiv.appendChild(spanmodal)
-      spanmodal.appendChild(imodal)     
-      
-    }
+  
   });
 }  
 async function supprimer() {
