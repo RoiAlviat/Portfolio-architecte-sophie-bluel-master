@@ -176,10 +176,17 @@ function upload() {
       document.querySelector(".background-upload").appendChild(imgupload)
     }
   })
-
-
+  
+  
   document.querySelector(".form").addEventListener('submit', (e) => {
     e.preventDefault();
+    document.querySelector(".userpic").remove
+    document.querySelector(".background-upload i").classList.replace("inactif", "actif")
+    document.querySelector(".background-upload input").classList.replace("inactif", "actif")
+    document.querySelector(".background-upload span").classList.replace("inactif", "actif")
+    document.querySelector(".background-upload label").classList.replace("invisible", "actif")
+    messageupload.classList.add = "vert"
+    document.querySelector(".background-upload").remove
     
     let messageupload = document.querySelector(".erreur-span")
     messageupload.style.color = "blue";
@@ -215,13 +222,6 @@ function upload() {
       .then((response) => {
         if (response.ok) {
           
-          document.querySelector(".userpic").remove
-          document.querySelector(".background-upload i").classList.replace("inactif", "actif")
-          document.querySelector(".background-upload input").classList.replace("inactif", "actif")
-          document.querySelector(".background-upload span").classList.replace("inactif", "actif")
-          document.querySelector(".background-upload label").classList.replace("invisible", "actif")
-          messageupload.classList.add = "vert"
-          document.querySelector(".background-upload").remove
           document.querySelector(".erreur-span").innerHTML = "Votre image a bien été ajouté.";
           return response.json();
         } else if (response.status === 500) {
