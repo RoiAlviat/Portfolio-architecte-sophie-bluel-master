@@ -247,6 +247,20 @@ function upload() {
     let categorie = document.getElementById("categorie").value;
     let fichier = document.getElementById("upload").files[0];
   
+    if (!fichier) {
+      document.querySelector(".erreur-span").innerHTML = "Veuillez sélectionner un fichier.";
+      document.querySelector(".background-upload i").classList.replace("inactif", "actif")
+    document.querySelector(".background-upload input").classList.replace("inactif", "actif")
+    document.querySelector(".background-upload span").classList.replace("inactif", "actif")
+    document.querySelector(".background-upload label").classList.replace("invisible", "actif")
+    return;
+    }
+  
+    let formData = new FormData();
+    formData.append("image", fichier);
+    formData.append("title", title);
+    formData.append("category", categorie);
+
     if (fichier) {
       fetch('http://localhost:5678/api/works', {
         method: "POST",
