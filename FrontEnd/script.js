@@ -260,9 +260,6 @@ for (let i = 0; i < travaux.length; i++) {
       })
       .then((response) => {
         if (response.ok) {
-          document.querySelectorAll("modalimgs-container div").forEach((newimg) => {
-            newimg.remove()
-          })
           document.querySelector(".erreur-span").innerHTML = "Votre image a bien été ajouté.";
           return response.json();
         } else if (response.status === 500) {
@@ -274,6 +271,9 @@ for (let i = 0; i < travaux.length; i++) {
       });
 
     }
+    document.querySelectorAll(".modalimgs-container div").forEach((newimg) => {
+      newimg.remove()
+    })
   });
 }  
 async function supprimer() {
