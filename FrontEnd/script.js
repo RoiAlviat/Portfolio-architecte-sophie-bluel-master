@@ -156,7 +156,7 @@ async function connexion() {
   
 }
 
-function upload() {
+  async function upload() {
   const inputElement = document.getElementById("upload");
   let tokendata = window.sessionStorage.getItem("token")
 
@@ -204,7 +204,7 @@ function upload() {
   })
   
   
-  document.querySelector(".form").addEventListener('submit', (e) => {
+  document.querySelector(".form").addEventListener('submit', async (e) => {
     e.preventDefault();
 
     let messageupload = document.querySelector(".erreur-span")
@@ -265,8 +265,9 @@ function upload() {
     document.querySelectorAll(".modalimgs-container div").forEach((newimg) => {
       newimg.remove()
     })
-
-    for(let i = 0; i < travaux.length; i++) {
+    const response2 = await fetch("http://localhost:5678/api/works");
+    let travaux2 = await response2.json();
+    for(let i = 0; i < travaux2.length; i++) {
       let imgmodal = document.createElement("img")
       let modaldiv = document.createElement("div")
       let spanmodal = document.createElement("span")
@@ -277,7 +278,7 @@ function upload() {
 
       imgmodal.src = travaux[i].imageUrl
 
-      modalimgscontainer.appendChild(modaldiv)
+      document.querySelector(".modalimgs-container").appendChild(modaldiv)
       modaldiv.appendChild(imgmodal)
       modaldiv.appendChild(spanmodal)
       spanmodal.appendChild(imodal)     
