@@ -265,8 +265,8 @@ function upload() {
         }
       })
       .then((data) => {
-        newimgarray.push(data.imageUrl)
-        for(let i = 0; i < newimgarray.length; i++) {
+      
+        for(let i = 0; i < data.length; i++) {
           let imgmodal = document.createElement("img")
           let modaldiv = document.createElement("div")
           let spanmodal = document.createElement("span")
@@ -275,7 +275,7 @@ function upload() {
           imodal.classList.add("fa-trash-can")
           imodal.classList.add("fa-solid")
     
-          imgmodal.src = newimgarray.imageUrl
+          imgmodal.src = data.imageUrl
           
           document.querySelector(".modalimgs-container").appendChild(modaldiv)
           modaldiv.appendChild(imgmodal)
