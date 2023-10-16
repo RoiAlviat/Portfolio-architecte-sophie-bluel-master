@@ -277,7 +277,7 @@ function upload() {
             imodal.classList.add("fa-trash-can");
             imodal.classList.add("fa-solid");
       
-            imgmodal.src = imageUrl; // Utilisez l'URL de l'image actuelle, pas tout le tableau
+            imgmodal.src = imageUrl; 
       
             document.querySelector(".modalimgs-container").appendChild(modaldiv);
             modaldiv.appendChild(imgmodal);
@@ -285,7 +285,24 @@ function upload() {
             spanmodal.appendChild(imodal);
           }
         }
-        supprimer()
+        document.querySelectorAll(".fa-trash-can").forEach((poubelle, index) => {
+          poubelle.addEventListener('click', (e) => {
+            e.preventDefault(); 
+      
+            let poubellescontainer = poubelle.parentElement
+            poubellescontainer.parentElement.classList.add("inactif")
+            const id = imgarrayurl[index].id;
+            console.log(id);
+            fetch("http://localhost:5678/api/works/" + id, {
+              method: "DELETE",
+              headers: {
+                "Authorization": "Bearer " + tokendata
+              }
+            });
+            
+       
+          });
+        });
       });
       
     }
@@ -297,7 +314,7 @@ function upload() {
 }  
 
 async function supprimer() {
-  console.log(imgarrayurl[1].id)
+  console.log(imgarrayurl)
   let tokendata = window.sessionStorage.getItem("token");
   document.querySelectorAll(".fa-trash-can").forEach((poubelle, index) => {
     poubelle.addEventListener('click', (e) => {
