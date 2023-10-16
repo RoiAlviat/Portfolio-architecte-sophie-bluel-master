@@ -290,7 +290,7 @@ function upload() {
             document.querySelector(".lastadded").addEventListener('click', (e) => {
               e.preventDefault(); 
         
-              let poubellescontainer = poubelle.parentElement
+              let poubellescontainer = document.querySelector(".lastadded").parentElement
               poubellescontainer.parentElement.classList.add("inactif")
               const id = dataid;
               console.log(id);
