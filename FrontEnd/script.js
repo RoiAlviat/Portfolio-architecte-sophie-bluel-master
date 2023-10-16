@@ -177,6 +177,9 @@ function upload() {
   document.querySelector(".fa-xmark2").addEventListener("click", () => {
     document.querySelector(".overlay").classList.replace("actif", "inactif")
     let imguploaded = document.querySelector(".userpic")
+    if(imguploaded) {
+      imguploaded.remove()
+    }
     document.querySelector(".background-upload i").classList.replace("inactif", "actif")
     document.querySelector(".background-upload input").classList.replace("inactif", "actif")
     document.querySelector(".background-upload span").classList.replace("inactif", "actif")
@@ -187,6 +190,9 @@ function upload() {
     document.querySelector(".modal-container").classList.replace("invisible", "actif")
     document.querySelector(".modal2-container").classList.replace("actif", "inactif")
     let imguploaded = document.querySelector(".userpic")
+    if(imguploaded) {
+      imguploaded.remove()
+    }
     document.querySelector(".background-upload i").classList.replace("inactif", "actif")
     document.querySelector(".background-upload input").classList.replace("inactif", "actif")
     document.querySelector(".background-upload span").classList.replace("inactif", "actif")
@@ -218,9 +224,11 @@ function upload() {
     messageupload.style.color = "blue";
     
     
-
     let imguploaded = document.querySelector(".userpic")
-    imguploaded.remove()
+    if(imguploaded) {
+      imguploaded.remove()
+    }
+  
     document.querySelector(".background-upload i").classList.replace("inactif", "actif")
     document.querySelector(".background-upload input").classList.replace("inactif", "actif")
     document.querySelector(".background-upload span").classList.replace("inactif", "actif")
