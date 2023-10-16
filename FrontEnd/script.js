@@ -307,6 +307,8 @@ function upload() {
                 headers: {
                   "Authorization": "Bearer " + tokendata
                 }
+              })
+              
          
             });
         }
