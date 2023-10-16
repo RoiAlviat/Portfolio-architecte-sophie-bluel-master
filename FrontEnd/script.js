@@ -1,5 +1,5 @@
 
-
+let imgdatalast = []
 let imgarrayurl = []
 
 document.querySelector(".log").addEventListener("click", () => {
@@ -264,6 +264,7 @@ function upload() {
         }
       })
       .then((data) => {
+        imgdatalast.push(data)
         const imageUrl = data.imageUrl;
         if (!imgarrayurl.includes(imageUrl)) {
           imgarrayurl.push(imageUrl);
@@ -291,7 +292,7 @@ function upload() {
       
             let poubellescontainer = poubelle.parentElement
             poubellescontainer.parentElement.classList.add("inactif")
-            const id = data.id;
+            const id = imgdatalast.id;
             console.log(id);
             fetch("http://localhost:5678/api/works/" + id, {
               method: "DELETE",
