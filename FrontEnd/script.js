@@ -285,6 +285,7 @@ function upload() {
             spanmodal.appendChild(imodal);
           }
         }
+        supprimer()
       });
       
     }
@@ -296,6 +297,7 @@ function upload() {
 }  
 
 async function supprimer() {
+  console.log(imgarrayurl[1].id)
   let tokendata = window.sessionStorage.getItem("token");
   document.querySelectorAll(".fa-trash-can").forEach((poubelle, index) => {
     poubelle.addEventListener('click', (e) => {
@@ -321,5 +323,5 @@ async function supprimer() {
 
 connexion()
 projets();
-upload();
 supprimer()
+upload();
