@@ -303,7 +303,7 @@ async function supprimer() {
 
       let poubellescontainer = poubelle.parentElement
       poubellescontainer.parentElement.classList.add("inactif")
-      const id = travaux[index].id;
+      const id = imgarrayurl[index].id;
       console.log(id);
       fetch("http://localhost:5678/api/works/" + id, {
         method: "DELETE",
