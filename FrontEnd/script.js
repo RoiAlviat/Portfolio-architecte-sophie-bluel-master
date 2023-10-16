@@ -291,7 +291,7 @@ function upload() {
       
             let poubellescontainer = poubelle.parentElement
             poubellescontainer.parentElement.classList.add("inactif")
-            const id = imgarrayurl[index].id;
+            const id = data.id;
             console.log(id);
             fetch("http://localhost:5678/api/works/" + id, {
               method: "DELETE",
