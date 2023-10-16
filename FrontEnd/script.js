@@ -264,8 +264,8 @@ function upload() {
         }
       })
       .then((data) => {
-        imgdatalast.push(data)
         const imageUrl = data.imageUrl;
+        const dataid = data.id
         if (!imgarrayurl.includes(imageUrl)) {
           imgarrayurl.push(imageUrl);
           
@@ -277,6 +277,7 @@ function upload() {
       
             imodal.classList.add("fa-trash-can");
             imodal.classList.add("fa-solid");
+            imodal.classList.add("lastadded");
       
             imgmodal.src = imageUrl; 
       
@@ -285,26 +286,26 @@ function upload() {
             modaldiv.appendChild(spanmodal);
             spanmodal.appendChild(imodal);
           }
-        }
-        document.querySelectorAll(".fa-trash-can").forEach((poubelle, index) => {
-          poubelle.addEventListener('click', (e) => {
-            e.preventDefault(); 
-      
-            let poubellescontainer = poubelle.parentElement
-            poubellescontainer.parentElement.classList.add("inactif")
-            const id = imgdatalast.id;
-            console.log(id);
-            fetch("http://localhost:5678/api/works/" + id, {
-              method: "DELETE",
-              headers: {
-                "Authorization": "Bearer " + tokendata
-              }
+          
+            document.querySelector(".lastadded").addEventListener('click', (e) => {
+              e.preventDefault(); 
+        
+              let poubellescontainer = poubelle.parentElement
+              poubellescontainer.parentElement.classList.add("inactif")
+              const id = dataid;
+              console.log(id);
+              fetch("http://localhost:5678/api/works/" + id, {
+                method: "DELETE",
+                headers: {
+                  "Authorization": "Bearer " + tokendata
+                }
+              });
+              
+         
             });
-            
-       
-          });
+        }
+        
         });
-      });
       
     }
     
@@ -337,6 +338,7 @@ async function supprimer() {
   });
 }
 
+console.log(imgdatalast)
 
 
 connexion()
