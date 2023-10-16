@@ -323,7 +323,6 @@ function upload() {
 }  
 
 async function supprimer() {
-  console.log(imgarrayurl)
   let tokendata = window.sessionStorage.getItem("token");
   document.querySelectorAll(".fa-trash-can").forEach((poubelle, index) => {
     poubelle.addEventListener('click', (e) => {
@@ -331,7 +330,7 @@ async function supprimer() {
 
       let poubellescontainer = poubelle.parentElement
       poubellescontainer.parentElement.classList.add("inactif")
-      const id = imgarrayurl[index].id;
+      const id = imgdatalast.id;
       console.log(id);
       fetch("http://localhost:5678/api/works/" + id, {
         method: "DELETE",
