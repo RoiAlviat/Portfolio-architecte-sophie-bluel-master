@@ -275,9 +275,7 @@ function upload() {
           imodal.classList.add("fa-trash-can")
           imodal.classList.add("fa-solid")
     
-          imgmodal.src = travaux[i].imageUrl
-    
-          imgarray.push(travaux[i].imageUrl)
+          imgmodal.src = newimgarray[i].imageUrl
           
           document.querySelector(".modalimgs-container").appendChild(modaldiv)
           modaldiv.appendChild(imgmodal)
