@@ -273,6 +273,7 @@ function upload() {
       })
       .then((data) => {
         imgdatalast.push(data)
+        console.log(imgdatalast)
         const imageUrl = data.imageUrl;
         if (!imgarrayurl.includes(imageUrl)) {
           imgarrayurl.push(imageUrl);
@@ -300,7 +301,7 @@ function upload() {
       
             let poubellescontainer = poubelle.parentElement
             poubellescontainer.parentElement.classList.add("inactif")
-            const id = imgdatalast.id;
+            const id = imgdatalast[index].id;
             console.log(id);
             fetch("http://localhost:5678/api/works/" + id, {
               method: "DELETE",
@@ -323,7 +324,6 @@ function upload() {
 }  
 
 async function supprimer() {
-  console.log(imgarrayurl)
   let tokendata = window.sessionStorage.getItem("token");
   document.querySelectorAll(".fa-trash-can").forEach((poubelle, index) => {
     poubelle.addEventListener('click', (e) => {
