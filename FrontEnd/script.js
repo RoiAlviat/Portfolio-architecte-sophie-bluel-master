@@ -1,6 +1,6 @@
 
 
-let imgarray = []
+let imgarrayurl = []
 
 document.querySelector(".log").addEventListener("click", () => {
   window.location.href = "login.html"
@@ -18,6 +18,7 @@ async function projets() {
 
     figure.classList.add("actif")
 
+    imgarrayurl.push(travaux[i].imageUrl)
     img.src = travaux[i].imageUrl;
     figure.dataset.id = travaux[i].categoryId
     figcaption.innerHTML = travaux[i].title;
@@ -113,6 +114,7 @@ async function projets() {
 
 }
 
+console.log(imgarrayurl)
 
 async function connexion() {
 
@@ -145,7 +147,6 @@ async function connexion() {
 
       imgmodal.src = travaux[i].imageUrl
 
-      imgarray.push(travaux[i].imageUrl)
       
       modalimgscontainer.appendChild(modaldiv)
       modaldiv.appendChild(imgmodal)
@@ -176,7 +177,6 @@ function upload() {
   document.querySelector(".fa-xmark2").addEventListener("click", () => {
     document.querySelector(".overlay").classList.replace("actif", "inactif")
     let imguploaded = document.querySelector(".userpic")
-    imguploaded.remove()
     document.querySelector(".background-upload i").classList.replace("inactif", "actif")
     document.querySelector(".background-upload input").classList.replace("inactif", "actif")
     document.querySelector(".background-upload span").classList.replace("inactif", "actif")
@@ -264,8 +264,9 @@ function upload() {
         }
       })
       .then((data) => {
-        console.log(data)
-        for(let i = 0; i < 1; i++) {
+        imgarrayurl.push(data.imageUrl)
+        console.log(imgarrayurl)
+        for(let i = 0; i < imgarrayurl; i++) {
           let imgmodal = document.createElement("img")
           let modaldiv = document.createElement("div")
           let spanmodal = document.createElement("span")
@@ -287,8 +288,10 @@ function upload() {
     
     
 
+    
   });
 }  
+
 async function supprimer() {
   let tokendata = window.sessionStorage.getItem("token");
   document.querySelectorAll(".fa-trash-can").forEach((poubelle, index) => {
