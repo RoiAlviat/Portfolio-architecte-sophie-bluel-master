@@ -265,8 +265,8 @@ function upload() {
         }
       })
       .then((data) => {
-      
-        for(let i = 0; i < data.length; i++) {
+        console.log(data)
+        for(let i = 0; i < 1; i++) {
           let imgmodal = document.createElement("img")
           let modaldiv = document.createElement("div")
           let spanmodal = document.createElement("span")
