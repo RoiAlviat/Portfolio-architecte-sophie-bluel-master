@@ -1,4 +1,6 @@
-let imgupload
+
+
+let imgarray = []
 
 document.querySelector(".log").addEventListener("click", () => {
   window.location.href = "login.html"
@@ -111,28 +113,6 @@ async function projets() {
 
 }
 
-function miseAJourListeImages(travaux) {
-  const modalimgscontainer = document.querySelector(".modalimgs-container");
-  modalimgscontainer.innerHTML = ""; // Supprime toutes les images actuelles
-
-  for (let i = 0; i < travaux.length; i++) {
-    let imgmodal = document.createElement("img");
-    let modaldiv = document.createElement("div");
-    let spanmodal = document.createElement("span");
-    let imodal = document.createElement("i");
-
-    imodal.classList.add("fa-trash-can");
-    imodal.classList.add("fa-solid");
-
-    imgmodal.src = travaux[i].imageUrl;
-
-    modalimgscontainer.appendChild(modaldiv);
-    modaldiv.appendChild(imgmodal);
-    modaldiv.appendChild(spanmodal);
-    spanmodal.appendChild(imodal);
-  }
-}
-
 
 async function connexion() {
 
@@ -165,6 +145,8 @@ async function connexion() {
 
       imgmodal.src = travaux[i].imageUrl
 
+      imgarray.push(travaux[i].imageUrl)
+      
       modalimgscontainer.appendChild(modaldiv)
       modaldiv.appendChild(imgmodal)
       modaldiv.appendChild(spanmodal)
@@ -172,16 +154,19 @@ async function connexion() {
       
     }
   }
-
+  
+  
   document.querySelector(".log").addEventListener("click", () => {
     sessionStorage.removeItem("token")
   })
   
 }
 
+
 function upload() {
   const inputElement = document.getElementById("upload");
   let tokendata = window.sessionStorage.getItem("token")
+  let newimgarray = []
 
   document.querySelector(".modal-button-container button").addEventListener("click", () => {
     document.querySelector(".modal-container").classList.replace("actif", "invisible")
@@ -227,7 +212,7 @@ function upload() {
   })
   
   
-  document.querySelector(".form").addEventListener('submit', (e) => {
+  document.querySelector(".form").addEventListener('submit', async (e) => {
     e.preventDefault();
 
     let messageupload = document.querySelector(".erreur-span")
@@ -261,7 +246,8 @@ function upload() {
     formData.append("title", title);
     formData.append("category", categorie);
 
-    if (fichier) {
+    if(fichier) {
+      console.log("salut")
       fetch('http://localhost:5678/api/works', {
         method: "POST",
         body: formData,
@@ -271,22 +257,41 @@ function upload() {
       })
       .then((response) => {
         if (response.ok) {
-          // Ajoutez la nouvelle image au tableau 'travaux'
-          travaux.push({
-            imageUrl: imgupload.src, // Assurez-vous que cette propriété est correcte
-            // Ajoutez d'autres propriétés comme 'id' si nécessaire
-          });
-          // Mettez à jour la liste d'images dans la modale de connexion
-          miseAJourListeImages(travaux);
-          document.querySelector(".erreur-span").innerHTML = "Votre image a bien été ajoutée.";
+          document.querySelector(".erreur-span").innerHTML = "Votre image a bien été ajouté.";
           return response.json();
         } else if (response.status === 500) {
-          // ... (votre gestion d'erreur)
+          messageupload.classList.add = "rouge"
+          messageupload = "Une erreur est survenue, veuillez actualiser la page.";
+        }
+      })
+      .then((data) => {
+        newimgarray.push(data.imageUrl)
+        for(let i = 0; i < newimgarray.length; i++) {
+          let imgmodal = document.createElement("img")
+          let modaldiv = document.createElement("div")
+          let spanmodal = document.createElement("span")
+          let imodal = document.createElement("i")
+    
+          imodal.classList.add("fa-trash-can")
+          imodal.classList.add("fa-solid")
+    
+          imgmodal.src = travaux[i].imageUrl
+    
+          imgarray.push(travaux[i].imageUrl)
+          
+          document.querySelector(".modalimgs-container").appendChild(modaldiv)
+          modaldiv.appendChild(imgmodal)
+          modaldiv.appendChild(spanmodal)
+          spanmodal.appendChild(imodal)     
+          
         }
       });
     }
+    
+    
+
   });
-}
+}  
 async function supprimer() {
   let tokendata = window.sessionStorage.getItem("token");
   document.querySelectorAll(".fa-trash-can").forEach((poubelle, index) => {
