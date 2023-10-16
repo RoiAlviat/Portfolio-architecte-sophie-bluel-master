@@ -177,9 +177,6 @@ function upload() {
   document.querySelector(".fa-xmark2").addEventListener("click", () => {
     document.querySelector(".overlay").classList.replace("actif", "inactif")
     let imguploaded = document.querySelector(".userpic")
-    if(imguploaded) {
-      imguploaded.remove()
-    }
     document.querySelector(".background-upload i").classList.replace("inactif", "actif")
     document.querySelector(".background-upload input").classList.replace("inactif", "actif")
     document.querySelector(".background-upload span").classList.replace("inactif", "actif")
@@ -190,9 +187,6 @@ function upload() {
     document.querySelector(".modal-container").classList.replace("invisible", "actif")
     document.querySelector(".modal2-container").classList.replace("actif", "inactif")
     let imguploaded = document.querySelector(".userpic")
-    if(imguploaded) {
-      imguploaded.remove()
-    }
     document.querySelector(".background-upload i").classList.replace("inactif", "actif")
     document.querySelector(".background-upload input").classList.replace("inactif", "actif")
     document.querySelector(".background-upload span").classList.replace("inactif", "actif")
@@ -224,10 +218,8 @@ function upload() {
     messageupload.style.color = "blue";
     
     
+
     let imguploaded = document.querySelector(".userpic")
-    if(imguploaded) {
-      imguploaded.remove()
-    }
   
     document.querySelector(".background-upload i").classList.replace("inactif", "actif")
     document.querySelector(".background-upload input").classList.replace("inactif", "actif")
@@ -273,7 +265,6 @@ function upload() {
       })
       .then((data) => {
         imgdatalast.push(data)
-        console.log(imgdatalast)
         const imageUrl = data.imageUrl;
         if (!imgarrayurl.includes(imageUrl)) {
           imgarrayurl.push(imageUrl);
@@ -301,7 +292,7 @@ function upload() {
       
             let poubellescontainer = poubelle.parentElement
             poubellescontainer.parentElement.classList.add("inactif")
-            const id = imgdatalast[index].id;
+            const id = imgdatalast.id;
             console.log(id);
             fetch("http://localhost:5678/api/works/" + id, {
               method: "DELETE",
@@ -324,6 +315,7 @@ function upload() {
 }  
 
 async function supprimer() {
+  console.log(imgarrayurl)
   let tokendata = window.sessionStorage.getItem("token");
   document.querySelectorAll(".fa-trash-can").forEach((poubelle, index) => {
     poubelle.addEventListener('click', (e) => {
