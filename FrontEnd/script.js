@@ -18,7 +18,7 @@ async function projets() {
 
     figure.classList.add("actif")
 
-    imgarrayurl.push(travaux[i].imageUrl)
+    imgarrayurl.push(travaux[i])
     img.src = travaux[i].imageUrl;
     figure.dataset.id = travaux[i].categoryId
     figcaption.innerHTML = travaux[i].title;
@@ -264,26 +264,29 @@ function upload() {
         }
       })
       .then((data) => {
-        imgarrayurl.push(data.imageUrl)
-        console.log(imgarrayurl)
-        for(let i = 0; i < imgarrayurl.length; i++) {
-          let imgmodal = document.createElement("img")
-          let modaldiv = document.createElement("div")
-          let spanmodal = document.createElement("span")
-          let imodal = document.createElement("i")
-    
-          imodal.classList.add("fa-trash-can")
-          imodal.classList.add("fa-solid")
-    
-          imgmodal.src = imgarrayurl
+        const imageUrl = data.imageUrl;
+        if (!imgarrayurl.includes(imageUrl)) {
+          imgarrayurl.push(imageUrl);
           
-          document.querySelector(".modalimgs-container").appendChild(modaldiv)
-          modaldiv.appendChild(imgmodal)
-          modaldiv.appendChild(spanmodal)
-          spanmodal.appendChild(imodal)     
-          
+          for (let i = 0; i < imgarrayurl.length; i++) {
+            let imgmodal = document.createElement("img");
+            let modaldiv = document.createElement("div");
+            let spanmodal = document.createElement("span");
+            let imodal = document.createElement("i");
+      
+            imodal.classList.add("fa-trash-can");
+            imodal.classList.add("fa-solid");
+      
+            imgmodal.src = imageUrl; // Utilisez l'URL de l'image actuelle, pas tout le tableau
+      
+            document.querySelector(".modalimgs-container").appendChild(modaldiv);
+            modaldiv.appendChild(imgmodal);
+            modaldiv.appendChild(spanmodal);
+            spanmodal.appendChild(imodal);
+          }
         }
       });
+      
     }
     
     
