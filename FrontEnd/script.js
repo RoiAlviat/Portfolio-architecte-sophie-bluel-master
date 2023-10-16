@@ -1,6 +1,6 @@
 
-let imgdatalast = []
-let imgarrayurl = []
+let projetlast = []
+let projetarray = []
 
 document.querySelector(".log").addEventListener("click", () => {
   window.location.href = "login.html"
@@ -8,6 +8,7 @@ document.querySelector(".log").addEventListener("click", () => {
 
 const response = await fetch("http://localhost:5678/api/works");
 let travaux = await response.json();
+
 
 async function projets() {
 
@@ -17,8 +18,7 @@ async function projets() {
     let figcaption = document.createElement("figcaption");
 
     figure.classList.add("actif")
-
-    imgarrayurl.push(travaux[i])
+projetarray.push(travaux[i].imageUrl)
     img.src = travaux[i].imageUrl;
     figure.dataset.id = travaux[i].categoryId
     figcaption.innerHTML = travaux[i].title;
@@ -114,7 +114,7 @@ async function projets() {
 
 }
 
-console.log(imgarrayurl)
+console.log(projetarray)
 
 async function connexion() {
 
@@ -133,27 +133,6 @@ async function connexion() {
     document.querySelector(".fa-xmark").addEventListener("click", () => {
       document.querySelector(".overlay").classList.replace("actif", "inactif")
     })
-
-    const modalimgscontainer = document.querySelector(".modalimgs-container ")
-    
-    for(let i = 0; i < travaux.length; i++) {
-      let imgmodal = document.createElement("img")
-      let modaldiv = document.createElement("div")
-      let spanmodal = document.createElement("span")
-      let imodal = document.createElement("i")
-
-      imodal.classList.add("fa-trash-can")
-      imodal.classList.add("fa-solid")
-
-      imgmodal.src = travaux[i].imageUrl
-
-      
-      modalimgscontainer.appendChild(modaldiv)
-      modaldiv.appendChild(imgmodal)
-      modaldiv.appendChild(spanmodal)
-      spanmodal.appendChild(imodal)     
-      
-    }
   }
   
   
@@ -162,7 +141,56 @@ async function connexion() {
   })
   
 }
+console.log(projetlast)
+function gallerie() {
+  const modalimgscontainer = document.querySelector(".modalimgs-container");
 
+  
+  if (!projetarray.includes(projetlast)) {
+    
+    for (let i = 0; i < travaux.length; i++) {
+      
+      let imgmodal = document.createElement("img");
+      let modaldiv = document.createElement("div");
+      let spanmodal = document.createElement("span");
+      let imodal = document.createElement("i");
+      
+      spanmodal.classList.add("trashspan")
+      imodal.classList.add("fa-trash-can");
+      imodal.classList.add("fa-solid");
+      
+      imgmodal.src = travaux[i].imageUrl;
+      
+      modalimgscontainer.appendChild(modaldiv);
+      modaldiv.appendChild(imgmodal);
+      modaldiv.appendChild(spanmodal);
+      spanmodal.appendChild(imodal);
+      // Vérifier si l'URL de l'image est déjà dans le tableau temporaire
+    }
+  }
+}
+
+function newGallery() {
+  const modalimgscontainer = document.querySelector(".modalimgs-container");
+
+  if (!projetarray.includes(projetlast)) {
+    let imgmodal = document.createElement("img");
+    let modaldiv = document.createElement("div");
+    let spanmodal = document.createElement("span");
+    let imodal = document.createElement("i");
+  
+    spanmodal.classList.add("trashspan")
+    imodal.classList.add("fa-trash-can");
+    imodal.classList.add("fa-solid");
+  
+    imgmodal.src = projetlast[0].imageUrl;
+  
+    modalimgscontainer.appendChild(modaldiv);
+    modaldiv.appendChild(imgmodal);
+    modaldiv.appendChild(spanmodal);
+    spanmodal.appendChild(imodal);
+  }
+}
 
 function upload() {
   const inputElement = document.getElementById("upload");
@@ -240,6 +268,7 @@ function upload() {
     let fichier = document.getElementById("upload").files[0];
   
     if (!fichier) {
+      document.querySelector(".erreur-span").style.color = "red"
       document.querySelector(".erreur-span").innerHTML = "Veuillez sélectionner un fichier.";
       document.querySelector(".background-upload i").classList.replace("inactif", "actif")
     document.querySelector(".background-upload input").classList.replace("inactif", "actif")
@@ -272,47 +301,10 @@ function upload() {
         }
       })
       .then((data) => {
-        const imageUrl = data.imageUrl;
-        const dataid = data.id
-        if (!imgarrayurl.includes(imageUrl)) {
-          imgarrayurl.push(imageUrl);
-          
-          for (let i = 0; i < 1; i++) {
-            let imgmodal = document.createElement("img");
-            let modaldiv = document.createElement("div");
-            let spanmodal = document.createElement("span");
-            let imodal = document.createElement("i");
-      
-            imodal.classList.add("fa-trash-can");
-            imodal.classList.add("fa-solid");
-            imodal.classList.add("lastadded");
-      
-            imgmodal.src = imageUrl; 
-      
-            document.querySelector(".modalimgs-container").appendChild(modaldiv);
-            modaldiv.appendChild(imgmodal);
-            modaldiv.appendChild(spanmodal);
-            spanmodal.appendChild(imodal);
-          }
-          
-            document.querySelector(".lastadded").addEventListener('click', (e) => {
-              e.preventDefault(); 
-        
-              let poubellescontainer = document.querySelector(".lastadded").parentElement
-              poubellescontainer.parentElement.classList.add("inactif")
-              const id = dataid;
-              console.log(id);
-              fetch("http://localhost:5678/api/works/" + id, {
-                method: "DELETE",
-                headers: {
-                  "Authorization": "Bearer " + tokendata
-                }
-              })
-              
-         
-            });
-        }
-        
+        projetlast.push(data)
+        travaux.push(data)
+        newGallery()
+        supprimer()
         });
       
     }
@@ -324,7 +316,6 @@ function upload() {
 }  
 
 async function supprimer() {
-  console.log(imgarrayurl)
   let tokendata = window.sessionStorage.getItem("token");
   document.querySelectorAll(".fa-trash-can").forEach((poubelle, index) => {
     poubelle.addEventListener('click', (e) => {
@@ -332,7 +323,7 @@ async function supprimer() {
 
       let poubellescontainer = poubelle.parentElement
       poubellescontainer.parentElement.classList.add("inactif")
-      const id = imgarrayurl[index].id;
+      const id = travaux[index].id;
       console.log(id);
       fetch("http://localhost:5678/api/works/" + id, {
         method: "DELETE",
@@ -346,10 +337,10 @@ async function supprimer() {
   });
 }
 
-console.log(imgdatalast)
 
 
 connexion()
 projets();
-supprimer()
 upload();
+gallerie()
+supprimer()
