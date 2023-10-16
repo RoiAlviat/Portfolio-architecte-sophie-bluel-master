@@ -162,11 +162,7 @@ async function connexion() {
   })
   
 }
-function removeItemFromArray(array, index) {
-  if (index >= 0) {
-    array.splice(index, 1);
-  }
-}
+
 
 function upload() {
   const inputElement = document.getElementById("upload");
@@ -311,10 +307,6 @@ function upload() {
                 headers: {
                   "Authorization": "Bearer " + tokendata
                 }
-              }).then(() => {
-                removeItemFromArray(imgdatalast, index);
-              });
-              
          
             });
         }
