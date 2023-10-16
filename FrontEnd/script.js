@@ -266,7 +266,7 @@ function upload() {
       .then((data) => {
         imgarrayurl.push(data.imageUrl)
         console.log(imgarrayurl)
-        for(let i = 0; i < imgarrayurl; i++) {
+        for(let i = 0; i < imgarrayurl.length; i++) {
           let imgmodal = document.createElement("img")
           let modaldiv = document.createElement("div")
           let spanmodal = document.createElement("span")
