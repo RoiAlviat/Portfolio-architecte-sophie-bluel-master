@@ -209,7 +209,8 @@ li:hover {
 }
 
 .clicked {
-	background-color: #92DE8B !important;
+	background-color: #1D6154 !important;
+	color: white !important;
 }
 
 .appart {
@@ -647,5 +648,5 @@ text-align: center;
 }
 
 .vert {
-	color: green;
+	color: #1D6154;
 }
